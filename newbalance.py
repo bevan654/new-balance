@@ -21,6 +21,7 @@ class Task:
         self.stock = {}
         self.first_run = True
         self.LOG('Starting','blue',bypass=True)
+        self.sendWebhook('deployed','deployed','https://media.discordapp.net/attachments/904022469512396861/904022677109497907/Genesis_AIO_logo_black.png?width=936&height=936','deployed')
         self.monitor()
 
 
