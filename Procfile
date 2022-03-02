@@ -1,1 +1,1 @@
-worker:python newbalance.py
+worker: python newbalance.py
