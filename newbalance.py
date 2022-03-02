@@ -14,7 +14,7 @@ colorama.init()
 
 
 
-
+print('starting')
 class Task:
     def __init__(self,pid):
         self.pid = pid
