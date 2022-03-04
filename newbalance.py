@@ -13,15 +13,16 @@ colorama.init()
 
 
 
+headers = {
+    'Cache-Control':'no-store'
+}
 
-print('starting')
 class Task:
     def __init__(self,pid):
         self.pid = pid
         self.stock = {}
         self.first_run = True
         self.LOG('Starting','blue',bypass=True)
-        self.sendWebhook('deployed','deployed','https://media.discordapp.net/attachments/904022469512396861/904022677109497907/Genesis_AIO_logo_black.png?width=936&height=936','deployed')
         self.monitor()
 
 
@@ -69,13 +70,19 @@ class Task:
 
             self.notification = None
             try:
-                response = requests.get(f'https://www.newbalance.com.au/on/demandware.store/Sites-NBAU-Site/en_AU/Product-Variation?pid={self.pid}',proxies=random.choice(proxies))
+                response = requests.get(f'https://www.newbalance.com.au/on/demandware.store/Sites-NBAU-Site/en_AU/Product-Variation?pid={self.pid}',proxies=random.choice(proxies),headers=headers)
             except Exception as e:
                 print(e)
                 self.LOG("Request Error",'red')
                 continue
 
             if response.status_code == 200:
+                try:
+                    if(response.headers['cf-cache-status'] != 'DYNAMIC'):
+                        print(response.headers)
+                except:
+                    pass 
+
                 newly_available = []
                 response = response.json()
                 for i in response['product']['variationAttributes'][1]['values']:
