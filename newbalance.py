@@ -121,7 +121,7 @@ class Task:
                 self.first_run = False
 
 
-            elif response.statsu_code == 403:
+            elif response.status_code == 403:
                 self.LOG("Unauthorized Access",'red')
                 continue
             else:
